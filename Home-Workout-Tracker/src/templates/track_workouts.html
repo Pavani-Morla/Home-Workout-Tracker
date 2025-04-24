@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Workouts</title>
+    <style>
+        body {
+            background-image: url('{{ url_for('static', filename='images/track-workouts.jpeg') }}');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: white;
+        }
+
+        h1 {
+            margin-top: 20px;
+            font-size: 28px;
+            text-transform: uppercase;
+            color: #ffcc00; /* Fitness-themed yellow */
+        }
+
+        /* White box styling */
+        .form-container {
+            background: rgba(255, 255, 255, 0.9); /* White box with transparency */
+            padding: 25px;
+            border-radius: 10px;
+            display: inline-block;
+            text-align: left;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Light shadow for elevation */
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+            color: black; /* Ensures readability */
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px;
+            width: 100%;
+            background-color: #ff5733; /* Energetic fitness color */
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #c70039;
+        }
+
+        a {
+            display: block;
+            margin-top: 20px;
+            color: black; /* Changed from white to black */
+            font-size: 16px;
+            text-decoration: none;
+            font-weight: bold;
+            background-color: #ffcc00; /* Bright yellow for visibility */
+            padding: 12px;
+            border-radius: 5px;
+            transition: 0.3s;
+            width: 220px;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        a:hover {
+            background-color: #ff5733;
+            color: white; /* Change text color on hover */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Track Your Workouts</h1>
+
+    <div class="form-container">
+        <form action="{{ url_for('track_workouts') }}" method="POST">
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="exercise">Exercise:</label>
+            <input type="text" id="exercise" name="exercise" required>
+
+            <label for="duration">Duration (minutes):</label>
+            <input type="number" id="duration" name="duration" required>
+              
+            <label for="notes">Notes:</label>
+            <textarea id="notes" name="notes" rows="3" cols="30"></textarea>
+
+            <button type="submit">Add Workout</button> <!-- This is the single submit button -->
+        </form>
+    </div>
+
+    <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+
+</body>
+</html>

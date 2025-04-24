@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Set Your Fitness Goal</title>
+    <style>
+        body {
+            background-image: url('{{ url_for('static', filename='images/set_goal.jpeg') }}');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+            padding: 50px 0;
+        }
+
+        h1 {
+            color: #ffcc00; /* Fitness-themed yellow */
+            font-size: 36px;
+            text-transform: uppercase;
+        }
+
+        form {
+            background: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+            padding: 30px;
+            border-radius: 10px;
+            display: inline-block;
+            max-width: 400px;
+            width: 90%;
+            margin: 0 auto;
+            text-align: left;
+            margin-left: 15%; /* Moves the form to the right */
+        }
+
+        label {
+            font-weight: bold;
+            color: white;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #ff5733;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #c70039;
+        }
+
+        hr {
+            margin-top: 30px;
+            border: 1px solid #ffcc00;
+            width: 60%;
+            margin: 20px auto;
+        }
+
+        h2 {
+            color: #ffcc00;
+        }
+
+        p {
+            font-size: 18px;
+        }
+
+        .flash-message {
+            color: red;
+            font-weight: bold;
+        }
+
+        /* New style for the goal details box */
+        .goal-container {
+            background: rgba(0, 0, 0, 0.8); /* Dark background to make text stand out */
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+            max-width: 500px;
+            margin: 20px auto;
+            text-align: left;
+        }
+
+        .goal-container p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .goal-container h2 {
+            color: #ffcc00;
+        }
+
+        /* Style for the "Goal Set Successfully" message */
+        .goal-success-message {
+            background-color: rgba(0, 255, 0, 0.7); /* Green background for success */
+            color: white;
+            font-size: 24px;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>Set Your Fitness Goal</h1>
+
+    <form method="POST" action="{{ url_for('set_goal') }}">
+        <label for="goal_type">Goal Type:</label>
+        <select name="goal_type" id="goal_type" required>
+            <option value="Workout Duration">Workout Duration (minutes)</option>
+            <option value="Exercise Type">Exercise Type (e.g., Running, Cycling)</option>
+            <option value="Calories Burned">Calories Burned</option>
+            <option value="Heart Rate">Average Heart Rate (bpm)</option>
+            <option value="Distance Covered">Distance Covered (km or miles)</option>
+            <option value="Sets Completed">Sets Completed</option>
+            <option value="Reps Completed">Reps Completed</option>
+            <option value="Weight Lifted">Weight Lifted (kg or lbs)</option>
+            <option value="Rest Time">Rest Time (minutes)</option>
+            <option value="Workout Intensity">Workout Intensity (Low, Medium, High)</option>
+            <option value="Steps Count">Steps Count</option>
+            <option value="Active Minutes">Active Minutes</option>
+            <option value="Calories Consumed">Calories Consumed</option>
+            <option value="Workout Date">Workout Date</option>
+            <option value="Sleep Duration">Sleep Duration (hours)</option>
+            <option value="Hydration Level">Hydration Level (liters)</option>
+            <option value="Flexibility">Flexibility (stretch duration)</option>
+        </select><br><br>
+
+        <label for="goal_value">Goal Value (minutes):</label>
+        <input type="number" id="goal_value" name="goal_value" required><br><br>
+
+        <label for="deadline">Deadline:</label>
+        <input type="date" id="deadline" name="deadline" required><br><br>
+
+        <button type="submit">Set Goal</button>
+    </form>
+
+    {% if goal %}
+        <hr>
+        {% if goal.error %}
+            <p style="color: red;">Error: {{ goal.error }}</p>
+        {% else %}
+            <!-- Success message for setting goal -->
+            <div class="goal-success-message">
+                Goal Set Successfully!
+            </div>
+
+            <!-- Displaying Goal Details in a Box -->
+            <div class="goal-container">
+                <h2>Goal Set Successfully!</h2>
+                <p><strong>Goal Type:</strong> {{ goal.goal_type }}</p>
+                <p><strong>Goal Value:</strong> {{ goal.goal_value }} minutes</p>
+                <p><strong>Deadline:</strong> {{ goal.deadline }}</p>
+            </div>
+              <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+
+        {% endif %}
+    {% endif %}
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Calendar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: url("{{ url_for('static', filename='images/calender.jpeg') }}") no-repeat center center fixed;
+            background-size: cover;
+            color: black; /* Text color changed for readability */
+            padding: 20px;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9); /* White semi-transparent box */
+            padding: 20px;
+            border-radius: 10px;
+            width: 60%;
+            margin: auto;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Soft shadow for better look */
+        }
+        h2 {
+            color: #ff5733; /* Title color changed */
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: rgba(255, 255, 255, 0.8); /* White background for workout entries */
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            font-size: 18px;
+            color: black; /* Make sure the text is visible */
+            font-weight: bold;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        a {
+            display: inline-block;
+            background-color: #ff5733;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        a:hover {
+            background-color: #c70039;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>📅 Your Workout Calendar</h2>
+        <ul>
+            {% for workout in workouts %}
+                <li>{{ workout.date }} - {{ workout.exercise }} ({{ workout.duration }} min)</li>
+            {% endfor %}
+        </ul>
+        <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register & Login</title>
+    <style>
+        body {
+            background-image: url('{{ url_for('static', filename='images/register-login.jpeg') }}');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        header {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #ffcc00; /* Bright fitness-themed color */
+        }
+
+        nav {
+            margin: 20px;
+        }
+
+        button {
+            padding: 12px;
+            margin: 5px;
+            background-color: #ff5733; /* Energetic workout-themed color */
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #c70039; /* Darker shade for hover effect */
+        }
+
+        main {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            display: inline-block;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        form {
+            display: inline-block;
+            text-align: left;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            color: black;
+            width: 300px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        h2 {
+            color: #ffcc00; /* Workout-themed yellow */
+        }
+    </style>
+
+    <script>
+        function showForm(formType) {
+            document.getElementById('registerForm').style.display = (formType === 'register') ? 'block' : 'none';
+            document.getElementById('loginForm').style.display = (formType === 'login') ? 'block' : 'none';
+        }
+    </script>
+</head>
+<body>
+
+    <header>
+        <h1>welcome to Home Workout Tracker</h1>
+    </header>
+
+    <nav>
+        <button onclick="showForm('register')">Register</button>
+        <button onclick="showForm('login')">Login</button>
+    </nav>
+
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul>
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <section id="registerForm" style="display: block;">
+            <h2>Register</h2>
+            <form action="/register" method="POST">
+                <label for="reg_username">Username:</label>
+                <input type="text" id="reg_username" name="username" required>
+
+                <label for="reg_email">Email:</label>
+                <input type="email" id="reg_email" name="email" required>
+
+                <label for="reg_password">Password:</label>
+                <input type="password" id="reg_password" name="password" required>
+
+                <button type="submit">Register</button>
+            </form>
+        </section>
+
+        <section id="loginForm" style="display: none;">
+            <h2>Login</h2>
+            <form action="/login" method="POST">
+                <label for="login_email">Email:</label>
+                <input type="email" id="login_email" name="email" required>
+
+                <label for="login_password">Password:</label>
+                <input type="password" id="login_password" name="password" required>
+
+                <button type="submit">Login</button>
+            </form>
+        </section>
+    </main>
+
+</body>
+</html>

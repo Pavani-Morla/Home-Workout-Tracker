@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekly Workout Entry</title>
+  <style>
+    /* General styling */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+
+    /* Header styling */
+    h1 {
+      text-align: center;
+      padding: 20px;
+      background-color: #2d87f0;
+      color: white;
+      margin: 0;
+    }
+
+    /* Workout summary container */
+    .workout-summary {
+      padding: 20px;
+      max-width: 800px;
+      margin: 20px auto;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+
+    /* Form styling */
+    form {
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #2d87f0;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #1d66c3;
+    }
+
+    /* Workout list container */
+    .workout-list {
+      margin-top: 30px;
+    }
+
+    .workout-box {
+      padding: 20px;
+      background-color: #f9f9f9;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Headings in workout box */
+    .workout-box h3 {
+      margin-top: 0;
+      font-size: 20px;
+      color: #2d87f0;
+    }
+
+    /* Paragraphs for the workout details */
+    .workout-box p {
+      margin: 10px 0;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="workout-summary">
+    <h1>Weekly Workout Entry</h1>
+    
+    <!-- Form to enter workout details -->
+    <form id="workout-form">
+      <div class="form-group">
+        <label for="exercise">Exercise:</label>
+        <input type="text" id="exercise" name="exercise" required>
+      </div>
+
+      <div class="form-group">
+        <label for="duration">Duration (minutes):</label>
+        <input type="number" id="duration" name="duration" required>
+      </div>
+
+      <div class="form-group">
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required>
+      </div>
+
+      <div class="form-group">
+        <label for="category">Category:</label>
+        <select id="category" name="category" required>
+          <option value="Cardio">Cardio</option>
+          <option value="Strength">Strength</option>
+          <option value="Flexibility">Flexibility</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="notes">Notes:</label>
+        <textarea id="notes" name="notes" rows="4" required></textarea>
+      </div>
+
+      <button type="submit">Add Workout</button>
+    </form>
+    
+    <div class="workout-list" id="workout-list">
+      <!-- The list of entered workouts will appear here -->
+    </div>
+  </div>
+
+  <script>
+    // JavaScript to handle form submission
+    document.getElementById("workout-form").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      // Collect input values
+      const exercise = document.getElementById("exercise").value;
+      const duration = document.getElementById("duration").value;
+      const date = document.getElementById("date").value;
+      const category = document.getElementById("category").value;
+      const notes = document.getElementById("notes").value;
+
+      // Create a new workout summary item
+      const workoutDiv = document.createElement("div");
+      workoutDiv.classList.add("workout-box");
+
+      workoutDiv.innerHTML = `
+        <h3>Exercise: ${exercise}</h3>
+        <p><strong>Duration:</strong> ${duration} minutes</p>
+        <p><strong>Date:</strong> ${date}</p>
+        <p><strong>Category:</strong> ${category}</p>
+        <p><strong>Notes:</strong> ${notes}</p>
+      `;
+
+      // Append the new workout to the list
+      document.getElementById("workout-list").appendChild(workoutDiv);
+
+      // Reset the form after submission
+      document.getElementById("workout-form").reset();
+    });
+  </script>
+
+</body>
+</html>

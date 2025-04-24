@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Plan</title>
+    <style>
+        body {
+            background-image: url('{{ url_for('static', filename='images/create_plan.png') }}'); 
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            color: white;
+            padding: 50px 0;
+            text-align: center;
+        }
+
+        h1 {
+            color: #ffcc00; /* Bright color for the heading */
+            font-size: 36px;
+            text-transform: uppercase;
+        }
+
+        form {
+            background: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+            padding: 30px;
+            border-radius: 10px;
+            display: inline-block;
+            max-width: 500px;
+            width: 90%;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        label {
+            font-weight: bold;
+            color: white;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #ff5733;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #c70039;
+        }
+
+        hr {
+            margin-top: 30px;
+            border: 1px solid #ffcc00;
+            width: 60%;
+            margin: 20px auto;
+        }
+
+        h2 {
+            color: #ffcc00;
+        }
+
+        p {
+            font-size: 18px;
+        }
+
+        .flash-message {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Create Your Plan</h1>
+
+    <form method="POST" action="/create_plan">
+        <label for="plan_name">Plan Name:</label>
+        <input type="text" id="plan_name" name="plan_name" value="Yoga & Flexibility" required><br><br>
+
+        <label for="plan_description">Plan Description:</label><br>
+        <textarea id="plan_description" name="plan_description" rows="4" cols="50" required>
+Yoga enhances flexibility, strength, and mental well-being through postures, breath control, and mindfulness, promoting relaxation and injury prevention.
+        </textarea><br><br>
+
+        <label for="start_date">Start Date:</label>
+        <input type="date" id="start_date" name="start_date" value="2025-05-01" required><br><br>
+
+        <label for="end_date">End Date:</label>
+        <input type="date" id="end_date" name="end_date" value="2025-06-01" required><br><br>
+
+        <label for="exercises">Exercises (comma-separated):</label>
+        <input type="text" id="exercises" name="exercises" required><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if plan_data %}
+    <h2>Plan Details:</h2>
+    <p><strong>Plan Name:</strong> {{ plan_data.plan_name }}</p>
+    <p><strong>Plan Description:</strong> {{ plan_data.plan_description }}</p>
+    <p><strong>Start Date:</strong> {{ plan_data.start_date }}</p>
+    <p><strong>End Date:</strong> {{ plan_data.end_date }}</p>
+    <p><strong>Exercises:</strong> {{ plan_data.exercises | join(', ') }}</p>
+      
+    {% endif %}
+    <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+
+
+</body>
+</html>

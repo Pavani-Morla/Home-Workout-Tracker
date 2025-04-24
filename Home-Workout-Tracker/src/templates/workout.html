@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Edit Workout</title>
+</head>
+<body>
+    <h1>Edit Workout</h1>
+
+    <form method="POST">
+        <input type="text" name="workout_name" value="{{ workout.workout_name }}" required>
+        <button type="submit">Update Workout</button>
+    </form>
+
+    <p><a href="{{ url_for('track_workouts') }}">Back to Workouts</a></p>
+</body>
+</html>

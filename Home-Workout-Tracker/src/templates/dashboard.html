@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            background-image: url('{{ url_for('static', filename='images/dashboard.webp') }}');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: white;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #ffcc00;
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            background-color: #ff5733;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #c70039;
+        }
+
+        main {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            display: inline-block;
+            border-radius: 10px;
+            margin-top: 20px;
+            max-width: 700px;
+            width: 90%;
+        }
+
+        button {
+            padding: 12px;
+            margin: 10px;
+            background-color: #ff5733;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #c70039;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        h3 {
+            margin-top: 30px;
+            color: #ffcc00;
+            font-size: 22px;
+        }
+
+        .section {
+            margin-top: 30px;
+        }
+
+        .section p {
+            color: white;
+            font-size: 16px;
+        }
+
+        .btn-info, .btn-warning, .btn-danger, .btn-success {
+            padding: 8px 16px;
+            font-size: 14px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 5px;
+        }
+
+        .btn-info {
+            background-color: #17a2b8;
+            color: white;
+        }
+
+        .btn-warning {
+            background-color: #ffc107;
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-info:hover {
+            background-color: #138496;
+        }
+
+        .btn-warning:hover {
+            background-color: #e0a800;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Workout Tracker</h1>
+        <nav>
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Welcome, {{ username }}!</h2>
+        <p>Track your workouts and view progress here.</p>
+
+        <!-- Navigation Buttons -->
+        <form action="{{ url_for('track_workouts') }}" method="GET">
+            <button type="submit">Track Your Workouts</button>
+        </form>
+        <form action="{{ url_for('view_progress') }}" method="GET">
+            <button type="submit">View Progress</button>
+        </form>
+        <form action="{{ url_for('achievements') }}" method="GET">
+            <button type="submit">Achievements</button>
+        </form>
+        <form action="{{ url_for('workout_calendar') }}" method="GET">
+            <button type="submit">View Calendar</button>
+        </form>
+        <form action="{{ url_for('statistics') }}" method="GET">
+            <button type="submit">View Statistics</button>
+        </form>
+        <form action="{{ url_for('workout_streak') }}" method="GET">
+            <button type="submit">View Streak</button>
+        </form>
+        <form action="{{ url_for('export_workouts') }}" method="GET">
+            <button type="submit">Export Workouts</button>
+        </form>
+        <!-- Goal Setting Section -->
+        <ul>
+            {% for goal in goals %}
+            <li>
+                <strong>{{ goal.goal_type }}:</strong> {{ goal.goal_value }}
+                <a href="{{ url_for('edit_goal', goal_id=goal.id) }}" class="btn btn-warning">Edit</a>
+                <form action="{{ url_for('delete_goal', goal_id=goal.id) }}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+        <form action="{{ url_for('set_goal') }}" method="GET">
+            <button type="submit">Set New Goal</button>
+        </form>
+        <!-- Workout Plan Section -->
+        <ul>
+            {% for plan in workout_plans %}
+            <li>
+                <strong>{{ plan.plan_name }}:</strong> {{ plan.plan_description }}
+                <form action="{{ url_for('execute_plan', plan_id=plan.id) }}" method="GET">
+                    <button type="submit">Execute Plan</button>
+                </form>
+                <form action="{{ url_for('view_plan', plan_id=plan.id) }}" method="GET">
+                    <button type="submit">View Plan</button>
+                </form>
+                <form action="{{ url_for('delete_plan', plan_id=plan.id) }}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+        <form action="{{ url_for('create_plan') }}" method="GET">
+            <button type="submit">Create New Plan</button>
+        </form>
+    </main>
+
+</body>
+</html>

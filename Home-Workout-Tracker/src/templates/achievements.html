@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Achievements</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-image: url('{{ url_for('static', filename='images/achievements.avif') }}'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #333;
+            padding: 20px;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+            width: 50%;
+            margin: auto;
+        }
+        h1 {
+            color: #ff5733;
+        }
+        .badge-box {
+            font-size: 20px;
+            font-weight: bold;
+            color: #27ae60;
+            margin: 20px;
+        }
+        .button {
+            display: inline-block;
+            background-color: #ff5733;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .button:hover {
+            background-color: #c70039;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏆 Your Achievements</h1>
+
+        {% if badges %}
+            {% for exercise, achievements in badges.items() %}
+                <h2>{{ exercise }}</h2>
+                <div class="badge-box">
+                    {% if achievements %}
+                        {% for achievement in achievements %}
+                            <p>{{ achievement }}</p>
+                        {% endfor %}
+                    {% else %}
+                        <p>No achievements yet for {{ exercise }}. Keep working out!</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No achievements earned yet! Start tracking your workouts.</p>
+        {% endif %}
+
+        <a href="{{ url_for('dashboard') }}" class="button">Back to Dashboard</a>
+    </div>
+</body>
+</html>

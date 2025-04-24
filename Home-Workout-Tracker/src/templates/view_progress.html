@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Progress</title>
+    <style>
+        body {
+            background-image: url('{{ url_for('static', filename='images/view-progress.avif') }}');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: white;
+        }
+
+        h1, h2 {
+            margin-top: 20px;
+            font-size: 28px;
+            text-transform: uppercase;
+            color: #ffcc00; /* Bright fitness yellow */
+        }
+
+        p {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffcc00; /* Make text more readable */
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background-color: #ff5733; /* Header color */
+            color: white; /* Ensure header text remains visible */
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Updated button styling for better visibility */
+        a {
+            display: block;
+            margin-top: 20px;
+            color: black; /* Changed from white to black for better contrast */
+            font-size: 16px;
+            text-decoration: none;
+            font-weight: bold;
+            background-color: #ffcc00; /* Bright yellow for visibility */
+            padding: 12px;
+            border-radius: 5px;
+            transition: 0.3s;
+            width: 220px;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        a:hover {
+            background-color: #ff5733;
+            color: white; /* Make text white on hover for contrast */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Workout Progress</h1>
+    <p>Total Workouts: {{ total_workouts }}</p>
+    <p>Total Duration: {{ total_duration }} minutes</p>
+
+    <h2>Workout Details</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Exercise</th>
+                <th>Duration (minutes)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for workout in workouts %}
+            <tr>
+                <td>{{ workout.date }}</td>
+                <td>{{ workout.exercise }}</td>
+                <td>{{ workout.duration }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+
+</body>
+</html>
