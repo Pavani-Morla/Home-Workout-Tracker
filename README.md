@@ -33,6 +33,10 @@ git clone https://github.com/Pavani-Morla/Home-Workout-Tracker
 
 Then navigate to the project directory:
 
+cd Home-Workout-Tracker
+
+Then navigate to src
+
 cd Home-Workout-Tracker /src
 
 Now install Required Packages
