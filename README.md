@@ -37,7 +37,7 @@ cd Home-Workout-Tracker
 
 Then navigate to src
 
-cd Home-Workout-Tracker /src
+cd Home-Workout-Tracker/src
 
 Now install Required Packages
 
