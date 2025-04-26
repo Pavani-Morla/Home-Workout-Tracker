@@ -59,4 +59,5 @@ View Streak
 Export Workouts
 Set New Goal
 Create New Plan.
-YouTube Video Link:
+
+YouTube Video Link: https://vimeo.com/1078977861/6cf0dccb56?ts=0&share=copy
